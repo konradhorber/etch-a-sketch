@@ -41,36 +41,31 @@ function createGrid(numberOfSquares, squareSize, borderStyle) {
         }
     }
     let lastColumnSquares = document.querySelectorAll(".square:last-child");
+
+    lastColumnSquares.forEach((square) => {
+        square.style.borderRight = `${borderStyle}`;
+    });
+
     let lastRowSquares = document.querySelector(".row:last-child").children;
     lastRowSquares = Array.from(lastRowSquares);
-    lastColumnSquares.forEach((square) => {
-        square.setAttribute("style", 
-            `border-right: ${borderStyle}`
-        );
-    });
+
     lastRowSquares.forEach((square) => {
-        square.setAttribute("style", 
-            `border-bottom: ${borderStyle}`
-        );
+        square.style.borderBottom = `${borderStyle}`;
     });
 
     // mouseover coloring for board
     const squares = document.querySelectorAll(".square");
     squares.forEach((square) => {
         square.addEventListener("mouseover", () => {
-            let currentSquareRgba = 
-            window.getComputedStyle(square).backgroundColor;
-            let currentSquareOpacity = 
-            currentSquareRgba.match(/[^,]+(?=\))/)[0].trim();
             let rgbRandom = [
                 getRandomIntInclusive(0, 255),
                 getRandomIntInclusive(0, 255),
                 getRandomIntInclusive(0, 255),
             ];
-            square.style.background = `rgba(${rgbRandom[0]},
-            ${rgbRandom[1]},
-            ${rgbRandom[2]},
-            ${currentSquareOpacity} + 0.1)`;
+            square.style.backgroundColor = `rgb(
+                ${rgbRandom[0]},
+                ${rgbRandom[1]},
+                ${rgbRandom[2]})`;
         });
     });
 }
